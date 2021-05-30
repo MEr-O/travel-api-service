@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Place</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</head>
+<body>
+<div>
+    <div class="container">
+        <form th:action="@{/admin/save-place}" th:object="${placeRequest}" method="post" enctype="multipart/form-data">
+            img: <input class="form-control" th:field="*{multipartFilesDocument}" type="file" placeholder="img" required> <br>
+            name: <input class="form-control" th:field="*{place.name}" type="text" placeholder="name" required> <br>
+            location: <input class="form-control" th:field="*{place.location}" type="text" placeholder="location" required> <br>
+            tag: <input class="form-control" th:field="*{place.tag}" type="text" placeholder="tag" required> <br>
+            rating: <input class="form-control" th:field="*{place.rating}" type="text" placeholder="rating" required> <br>
+            description: <input class="form-control" th:field="*{place.description}" type="text" placeholder="description" required> <br>
+            fullprice: <input class="form-control" th:field="*{place.fullprice}" type="text" placeholder="fullprice" required> <br>
+            currentprice: <input class="form-control" th:field="*{place.currentprice}" type="text" placeholder="currentprice" required> <br>
+            popular: <input class="form-check-input" th:field="*{place.popular}" type="checkbox" placeholder="popular"> <br>
+            suggest: <input class="form-check-input" th:field="*{place.suggest}" type="checkbox" placeholder="suggest"> <br><br>
+            <input class="btn btn-primary" type="submit" value="Add" />
+        </form>
+    </div>
+
+    <br><br>
+    Total: <label th:text="${places.total}"></label><br>
+    <div style="display: flex; margin-top: 10px; flex-wrap: wrap;">
+        <div th:each="place, iter: ${places.places}" style="width: 33%;">
+            Name: <label th:text="${place.name}"></label>
+            <a th:href="'/admin/edit-place?id=' + ${place.id}">Edit</a>
+            <img th:src="${place.img.imagePath}" style="width: 100%;">
+
+            Description: <label th:text="${place.description}"></label><br/>
+            Location: <label th:text="${place.location}"></label><br/>
+            Tag: <label th:text="${place.tag}"></label><br/>
+            Rating: <label th:text="${place.rating}"></label><br/>
+            Fullprice: <label th:text="${place.fullprice}"></label><br/>
+            Currentprice: <label th:text="${place.currentprice}"></label><br/>
+            Popular: <label th:text="${place.popular}"></label><br/>
+            Suggest: <label th:text="${place.suggest}"></label><br/>
+        </div>
+    </div>
+</div>
+</body>
+</html>
